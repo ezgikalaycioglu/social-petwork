@@ -4,6 +4,7 @@ from .serializers import PetSerializer
 
 
 class PetViewSet(viewsets.ModelViewSet):
+    # sselamlarrrrrrr
     serializer_class = PetSerializer
     permission_classes = [permissions.IsAuthenticated]
 
