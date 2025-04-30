@@ -6,7 +6,7 @@ class Pet(models.Model):
     SPECIES_CHOICES = [
         ("dog", "Dog"),
         ("cat", "Cat"),
-        ("other", "Other"),
+        ("other", "Other"), 
     ]
 
     owner = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="pets")
