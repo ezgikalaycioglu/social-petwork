@@ -1,7 +1,7 @@
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Landing from './pages/Landing';
-import AuthPage from './pages/AuthPage';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing";
+import AuthPage from "./pages/AuthPage";
+import PetDashboard from "./pages/PetDashboard.jsx";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/dashboard" element={<PetDashboard />} />
       </Routes>
     </Router>
   );

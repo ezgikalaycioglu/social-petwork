@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-export default function AuthForm({ mode = 'login', onSubmit }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+export default function AuthForm({ mode = "login", onSubmit }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const title = mode === 'signup' ? 'Sign Up' : 'Log In';
+  const title = mode === "signup" ? "Sign Up" : "Log In";
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = { username, password };
-    if (mode === 'signup') {
+    if (mode === "signup") {
       data.email = email;
     }
 
@@ -19,7 +19,10 @@ export default function AuthForm({ mode = 'login', onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
+    >
       <h2 className="text-2xl font-bold mb-4 text-center">{title}</h2>
 
       <input
@@ -31,7 +34,7 @@ export default function AuthForm({ mode = 'login', onSubmit }) {
         required
       />
 
-      {mode === 'signup' && (
+      {mode === "signup" && (
         <input
           type="email"
           placeholder="Email"
@@ -53,7 +56,7 @@ export default function AuthForm({ mode = 'login', onSubmit }) {
 
       <button
         type="submit"
-        className="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 transition"
+        className="w-full bg-pink-600 text-black py-2 rounded hover:bg-pink-700 transition"
       >
         {title}
       </button>
