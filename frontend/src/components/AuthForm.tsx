@@ -1,19 +1,27 @@
-import { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { AuthFormProps, AuthCredentials } from "../types";
 
-export default function AuthForm({ mode = "login", onSubmit }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+export default function AuthForm({ mode = "login", onSubmit }: AuthFormProps) {
+  const [form, setForm] = useState<AuthCredentials>({
+    username: "",
+    password: "",
+    email: "",
+  });
 
   const title = mode === "signup" ? "Sign Up" : "Log In";
 
-  const handleSubmit = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = { username, password };
-    if (mode === "signup") {
-      data.email = email;
-    }
+    const data: AuthCredentials = {
+      ...form,
+    };
+    if (mode === "login") delete data.email;
 
     onSubmit(data);
   };
@@ -27,30 +35,33 @@ export default function AuthForm({ mode = "login", onSubmit }) {
 
       <input
         type="text"
+        name="username"
         placeholder="Username"
         className="w-full p-2 mb-3 border border-gray-300 rounded"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={form.username}
+        onChange={handleChange}
         required
       />
 
       {mode === "signup" && (
         <input
           type="email"
+          name="email"
           placeholder="Email"
           className="w-full p-2 mb-3 border border-gray-300 rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={form.email}
+          onChange={handleChange}
           required
         />
       )}
 
       <input
         type="password"
+        name="password"
         placeholder="Password"
         className="w-full p-2 mb-4 border border-gray-300 rounded"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={form.password}
+        onChange={handleChange}
         required
       />
 

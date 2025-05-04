@@ -1,27 +1,29 @@
 import { useState } from "react";
-import AuthForm from "../components/AuthForm";
-import API from "../api";
+import AuthForm from "../components/AuthForm.js";
+import API from "../api/api";
+import { useNavigate } from "react-router-dom";
+import { AuthCredentials, AuthResponse } from "../types";
+import { useAuth } from "../context/AuthContext";
 
 export default function AuthPage() {
-  const [mode, setMode] = useState("login");
+  const { login } = useAuth();
+  const [mode, setMode] = useState<"login" | "signup">("login");
 
   const toggleMode = () => {
     setMode(mode === "login" ? "signup" : "login");
   };
 
-  const handleAuth = async (data) => {
+  const navigate = useNavigate();
+
+  const handleAuth = async (data: AuthCredentials) => {
     const endpoint = mode === "signup" ? "/auth/signup/" : "/auth/login/";
 
     try {
-      const res = await API.post(endpoint, data);
+      const res = await API.post<AuthResponse>(endpoint, data);
       const { access, refresh } = res.data;
-
-      // Tokenları kaydet
-      localStorage.setItem("accessToken", access);
+      login(access);
       localStorage.setItem("refreshToken", refresh);
-
-      alert("Authentication successful!");
-      // yönlendirme vs yapılabilir
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
       alert("Authentication failed");
