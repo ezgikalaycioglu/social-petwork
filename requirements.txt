@@ -19,3 +19,4 @@ PyJWT==2.9.0
 PyYAML==6.0.2
 sqlparse==0.5.3
 virtualenv==20.30.0
+django-cors-headers==4.3.1
